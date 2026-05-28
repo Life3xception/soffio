@@ -1,0 +1,6 @@
+{
+  "name": "Soffio",
+  "description": "Un'app mobile web minimale e motivazionale per migliorare la routine settimanale, promuovere il movimento quotidiano e sviluppare abitudini sane con leggerezza.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
