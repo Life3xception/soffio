@@ -76,20 +76,20 @@ export default function HomeView({ onNavigateToRoutine }: HomeViewProps) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        className="flex flex-col gap-3 sm:flex-row sm:items-center justify-between"
       >
         <div className="space-y-1">
           <span className="text-xs font-mono text-slate-500 uppercase tracking-widest block font-medium">
             {getWeekDayString()}
           </span>
-          <h2 className="text-2xl font-light text-slate-100 tracking-tight flex items-center gap-2">
+          <h2 className="text-2xl font-light text-slate-100 tracking-tight flex items-center gap-2 flex-wrap">
             {greeting}, <span className="font-semibold text-white">{profile.name}</span>
             {greetingIcon}
           </h2>
         </div>
         
         {/* Simple Active Streak Widget */}
-        <div className="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-4 py-2 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-2 bg-slate-900/60 border border-slate-800/80 px-4 py-2 rounded-2xl shadow-sm self-start sm:self-auto">
           <div className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-60"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>

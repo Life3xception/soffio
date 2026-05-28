@@ -134,15 +134,15 @@ export default function RoutineView() {
 
       {/* 2. Day details & Local difficulty calibrator */}
       <div className="p-5 bg-slate-900/35 border border-slate-800/80 rounded-3xl space-y-4">
-        <div className="flex justify-between items-center pb-3 border-b border-slate-800/40">
+        <div className="flex flex-col gap-3 pb-3 border-b border-slate-800/40">
           <div>
             <h3 className="text-lg font-light text-slate-100 flex items-center gap-1.5">
               Programma di <span className="font-semibold text-white">{currentDayData?.dayName}</span>
             </h3>
-            <span className="text-[10px] text-slate-500 font-mono font-medium">Stato energetico programmato:</span>
+            <span className="text-[10px] text-slate-500 font-mono font-medium block mt-1">Stato energetico programmato:</span>
           </div>
 
-          <div className="flex gap-1.5 bg-slate-950/60 p-1 rounded-xl border border-slate-800">
+          <div className="flex gap-1.5 bg-slate-950/60 p-1 rounded-xl border border-slate-800 w-full justify-between sm:justify-start">
             {(['scarico', 'normale', 'energico'] as EnergyLevel[]).map(lvl => (
               <button
                 key={lvl}

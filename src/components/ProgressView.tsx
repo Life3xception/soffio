@@ -11,16 +11,25 @@ import { TrendingUp, Award, Battery, ShieldAlert, Heart, Calendar, Bookmark, Lan
 export default function ProgressView() {
   const { userStats, schedule } = useSoffioState();
 
-  // Mock calendar tracking completions for a visual representation
-  const weeklyCompletionMock = [
-    { day: 'Lun', completed: 3, skipped: 1, energy: 'normale' },
-    { day: 'Mar', completed: 2, skipped: 0, energy: 'scarico' },
-    { day: 'Mer', completed: 3, skipped: 1, energy: 'energico' },
-    { day: 'Gio', completed: 1, skipped: 2, energy: 'normale' },
-    { day: 'Ven', completed: 2, skipped: 0, energy: 'normale' },
-    { day: 'Sab', completed: 1, skipped: 1, energy: 'scarico' },
-    { day: 'Dom', completed: 0, skipped: 1, energy: 'scarico' }
-  ];
+  // Real calendar tracking completions from schedule
+  const weeklyCompletionActual = [
+    { id: 'lun', day: 'Lun' },
+    { id: 'mar', day: 'Mar' },
+    { id: 'mer', day: 'Mer' },
+    { id: 'gio', day: 'Gio' },
+    { id: 'ven', day: 'Ven' },
+    { id: 'sab', day: 'Sab' },
+    { id: 'dom', day: 'Dom' }
+  ].map(d => {
+    const dayData = schedule.find(s => s.id === d.id);
+    const energy = userStats.weeklyEnergyLog[d.id] || 'normale';
+    const acts = dayData ? dayData.energyRecommendation[energy] : [];
+    return {
+      day: d.day,
+      completed: acts.filter(a => a.completed).length,
+      skipped: acts.filter(a => a.skipped).length,
+    };
+  });
 
   // Derived metrics
   const totalCompleted = userStats.totalCompleted;
@@ -131,7 +140,7 @@ export default function ProgressView() {
 
         {/* Interactive Bar Chart built purely in responsive styling/SVG */}
         <div className="flex justify-between items-end h-32 pt-2 px-1">
-          {weeklyCompletionMock.map((day, idx) => {
+          {weeklyCompletionActual.map((day, idx) => {
             const maxCompletes = 4;
             // Height calculation
             const complHeight = (day.completed / maxCompletes) * 100;
@@ -179,28 +188,8 @@ export default function ProgressView() {
         
         {/* Simple Chronological Activity Log */}
         <div className="space-y-2 max-h-44 overflow-y-auto pr-1 no-scrollbar">
-          <div className="flex items-start gap-3 p-3 bg-slate-900/30 rounded-2xl border border-slate-900">
-            <div className="w-1.5 h-1.5 rounded-full bg-teal-400 mt-1.5" />
-            <div className="flex-1 min-w-0">
-              <span className="text-[9px] font-mono text-slate-500">Ieri • 18:30</span>
-              <p className="text-xs text-slate-300 font-medium">Allungamento spalle e rilascio tensioni lombari</p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 p-3 bg-slate-900/30 rounded-2xl border border-slate-900">
-            <div className="w-1.5 h-1.5 rounded-full bg-teal-400 mt-1.5" />
-            <div className="flex-1 min-w-0">
-              <span className="text-[9px] font-mono text-slate-500">2 Giorni Fa • 14:15</span>
-              <p className="text-xs text-slate-300 font-medium font-sans">Minuto di decompressione (Mano sulla pancia)</p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 p-3 bg-slate-900/30 rounded-2xl border border-slate-900">
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5" />
-            <div className="flex-1 min-w-0">
-              <span className="text-[9px] font-mono text-slate-500">2 Giorni Fa • 10:00</span>
-              <p className="text-xs text-slate-400 italic">Oggi ho scelto di riposare (Stretching del piriforme)</p>
-            </div>
+          <div className="p-4 text-center text-slate-500 text-xs italic">
+            Nessuna attività registrata finora. Il tuo storico apparirà qui.
           </div>
         </div>
       </div>
