@@ -54,15 +54,11 @@ export function SoffioStateProvider({ children }: ProviderProps) {
   };
 
   const defaultStats: UserStats = {
-    streak: 3, // Bootstrap with some encouraging metrics so initial charts look real and attractive
-    lastActiveDate: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0], // Yesterday
-    totalCompleted: 14,
-    totalSkipped: 3,
-    weeklyEnergyLog: {
-      'lun': 'normale',
-      'mar': 'scarico',
-      'mer': 'energico'
-    },
+    streak: 0,
+    lastActiveDate: '',
+    totalCompleted: 0,
+    totalSkipped: 0,
+    weeklyEnergyLog: {},
     completedActivities: []
   };
 
